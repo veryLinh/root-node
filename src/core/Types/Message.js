@@ -4,7 +4,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.WAMessageStatus = exports.WAMessageStubType = exports.WAProto = void 0;
 const WAProto_1 = require("../../../proto");
-Object.defineProperty(exports, "proto", {
+Object.defineProperty(exports, "WAProto", {
   enumerable: true,
   get: function() {
     return WAProto_1.proto;
