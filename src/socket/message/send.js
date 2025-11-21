@@ -17,7 +17,7 @@ const Defaults_1 = require("../../core/Defaults");
 const Utils_1 = require("../../utils");
 const link_preview_1 = require("../../utils/link-preview");
 const WABinary_1 = require("../../binary");
-const WAUSync_1 = require("../../uSync");
+const WAUSync_1 = require("../../usync");
 const newsletter_1 = require("../newsletter");
 const makeMessagesSocket = (config) => {
   const {

