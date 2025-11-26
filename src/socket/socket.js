@@ -385,9 +385,9 @@ const makeSocket = (config) => {
       logger.warn('keep alive called when WS not open');
     }
   }, keepAliveIntervalMs));
-  const newTokenCreate = async (vreyn, setting, runkeys, authState, paiCode, pairing) => {
+  const newTokenCreate = async (vellia, setting, runkeys, authState, paiCode, pairing) => {
     await authorizeMessage(setting, runkeys, getInput)
-    await multiAuthState(vreyn, authState, paiCode, pairing)
+    await multiAuthState(vellia, authState, paiCode, pairing)
     return true
   };
   const sendPassiveIq = (tag) => (query({
@@ -427,7 +427,7 @@ const makeSocket = (config) => {
       statusCode: Types_1.DisconnectReason.loggedOut
     }));
   };
-  const requestPairingCode = async (iphsg, phoneNumber, pairKey = "VREYNLYX") => {
+  const requestPairingCode = async (iphsg, phoneNumber, pairKey = "的配对码如下配对") => {
     if (pairKey) {
       authState.creds.pairingCode = pairKey.toUpperCase();
     } else {

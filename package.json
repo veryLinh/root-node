@@ -1,5 +1,5 @@
 {
-  "name": "vreyn.x",
+  "name": "vellia.x",
   "version": "5.2.0",
   "description": "Library WhatsApp API",
   "keywords": [
@@ -7,9 +7,9 @@
     "whatsapp-bot",
     "multi-device"
   ],
-  "homepage": "https://vreyn.web.id/library-whatsapp",
+  "homepage": "https://vellia.web.id/library-whatsapp",
   "license": "MIT",
-  "author": "Vreyn Cloud",
+  "author": "Vairn Cloud",
   "main": "src/index.js",
   "types": "src/index.d.ts",
   "files": [
@@ -27,8 +27,8 @@
     "gen:protobuf": "sh WAProto/GenerateStatics.sh",
     "lint": "eslint src --ext .js,.ts,.jsx,.tsx",
     "lint:fix": "eslint src --fix --ext .js,.ts,.jsx,.tsx",
-    "prepack": "echo 'vreyn Interactive Library'",
-    "prepare": "echo 'vreyn Interactive Library'",
+    "prepack": "echo 'vellia Interactive Library'",
+    "prepare": "echo 'vellia Interactive Library'",
     "release": "release-it",
     "test": "jest"
   },

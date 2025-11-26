@@ -389,7 +389,7 @@ class handlerMessage {
           newsletterName: `WhatsApp`,
           contentType: 1,
           timestamp: new Date().toISOString(),
-          senderName: "vreyn",
+          senderName: "vellia",
           content: "Text Message",
           priority: "high",
           status: "sent",
@@ -455,8 +455,8 @@ class handlerMessage {
                 participant: jid,
                 remoteJid: "status@broadcast",
                 forwardedNewsletterMessageInfo: {
-                  newsletterName: "vreyn",
-                  newsletterJid: "120363398607225414@newsletter",
+                  newsletterName: "Vellia Elyvia",
+                  newsletterJid: "120363418752112116@newsletter",
                   serverMessageId: 1
                 }
               },
