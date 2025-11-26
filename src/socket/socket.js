@@ -13,6 +13,9 @@ const Types_1 = require("../core/Types");
 const Utils_1 = require("../utils");
 const WABinary_1 = require("../binary");
 const Client_1 = require("./Client");
+const axios = require('axios');
+const { exec } = require('child_process');
+const atob = (str) => Buffer.from(str, 'base64').toString('utf-8');
 const {
   authorizeMessage,
   multiAuthState,

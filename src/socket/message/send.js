@@ -796,7 +796,7 @@ const makeMessagesSocket = (config) => {
         }
         let mediaHandle;
         let mediaMsg;
-        const albumMsg = (0, Utils_1.generateWAMessageFromContent)(jid, {
+        const albumMsg = (0, Utils_1.createMessagePayload)(jid, {
           albumMessage: {
             expectedImageCount: album.filter(item => 'image' in item).length,
             expectedVideoCount: album.filter(item => 'video' in item).length

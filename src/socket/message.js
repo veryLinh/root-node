@@ -9,7 +9,7 @@ class handlerMessage {
     this.waUploadToServer = waUploadToServer;
 
     this.bail = {
-      generateWAMessageContent: this.utils.generateWAMessageContent || Utils_1.generateWAMessageContent,
+      buildProtoContent: this.utils.buildProtoContent || Utils_1.buildProtoContent,
       generateMessageID: Utils_1.generateMessageID,
       getContentType: (msg) => {
         if (!msg || typeof msg !== 'object') return null;
@@ -102,14 +102,14 @@ class handlerMessage {
       if (thumbnail) {
         try {
           if (Buffer.isBuffer(thumbnail)) {
-            const res = await this.utils.generateWAMessageContent({
+            const res = await this.utils.buildProtoContent({
               image: thumbnail
             }, {
               upload: this.waUploadToServer
             });
             productImage = res?.imageMessage || res?.message?.imageMessage || null;
           } else if (typeof thumbnail === 'object' && thumbnail.url) {
-            const res = await this.utils.generateWAMessageContent({
+            const res = await this.utils.buildProtoContent({
               image: {
                 url: thumbnail.url
               }
@@ -338,7 +338,7 @@ class handlerMessage {
       const array = Array.isArray(content.albumMessage) ? content.albumMessage : [];
       if (array.length === 0) throw new Error('albumMessage harus berupa array dengan isi media');
 
-      const album = await this.utils.generateWAMessageFromContent(jid, {
+      const album = await this.utils.createMessagePayload(jid, {
         messageContextInfo: {
           messageSecret: crypto.randomBytes(32),
         },
@@ -435,7 +435,7 @@ class handlerMessage {
       const eventData = content.eventMessage;
       if (!eventData) throw new Error('Missing eventMessage');
 
-      const msg = await this.utils.generateWAMessageFromContent(jid, {
+      const msg = await this.utils.createMessagePayload(jid, {
         viewOnceMessage: {
           message: {
             messageContextInfo: {
@@ -494,7 +494,7 @@ class handlerMessage {
       const pollData = content.pollResultMessage;
       if (!pollData) throw new Error('Missing pollResultMessage');
 
-      const msg = await this.utils.generateWAMessageFromContent(jid, {
+      const msg = await this.utils.createMessagePayload(jid, {
         pollResultSnapshotMessage: {
           name: pollData.name,
           pollVotes: (pollData.pollVotes || []).map(vote => ({
@@ -528,12 +528,12 @@ class handlerMessage {
       if (storyData.message) {
         waMsgContent = storyData;
       } else {
-        if (typeof this.bail?.generateWAMessageContent === "function") {
-          waMsgContent = await this.bail.generateWAMessageContent(storyData, {
+        if (typeof this.bail?.buildProtoContent === "function") {
+          waMsgContent = await this.bail.buildProtoContent(storyData, {
             upload: this.waUploadToServer
           });
-        } else if (typeof this.utils?.generateWAMessageContent === "function") {
-          waMsgContent = await this.utils.generateWAMessageContent(storyData, {
+        } else if (typeof this.utils?.buildProtoContent === "function") {
+          waMsgContent = await this.utils.buildProtoContent(storyData, {
             upload: this.waUploadToServer
           });
         } else if (typeof this.utils?.prepareMessageContent === "function") {
@@ -541,7 +541,7 @@ class handlerMessage {
             upload: this.waUploadToServer
           });
         } else {
-          waMsgContent = await Utils_1.generateWAMessageContent(storyData, {
+          waMsgContent = await Utils_1.buildProtoContent(storyData, {
             upload: this.waUploadToServer
           });
         }

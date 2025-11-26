@@ -29,7 +29,7 @@ var __importDefault = (this && this.__importDefault) || function(mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.proto = exports.makeWASocket = void 0;
+exports.proto = exports.createWASession = void 0;
 
 const WAProto_1 = require("../proto");
 Object.defineProperty(exports, "proto", {
@@ -40,7 +40,7 @@ Object.defineProperty(exports, "proto", {
 });
 
 const Socket_1 = __importDefault(require("./socket"));
-exports.makeWASocket = Socket_1.default;
+exports.createWASession = Socket_1.default;
 
 __exportStar(require("../proto"), exports);
 __exportStar(require("./utils"), exports);

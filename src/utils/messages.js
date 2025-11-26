@@ -7,7 +7,7 @@ var __importDefault = (this && this.__importDefault) || function(mod) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.assertMediaContent = exports.downloadMediaMessage = exports.aggregateMessageKeysNotFromMe = exports.updateMessageWithPollUpdate = exports.updateMessageWithReaction = exports.updateMessageWithReceipt = exports.getDevice = exports.extractMessageContent = exports.normalizeMessageContent = exports.getContentType = exports.generateWAMessage = exports.generateWAMessageFromContent = exports.generateWAMessageContent = exports.generateForwardMessageContent = exports.prepareDisappearingMessageSettingContent = exports.prepareWAMessageMedia = exports.generateLinkPreviewIfRequired = exports.extractUrlFromText = void 0;
+exports.assertMediaContent = exports.downloadMediaMessage = exports.aggregateMessageKeysNotFromMe = exports.updateMessageWithPollUpdate = exports.updateMessageWithReaction = exports.updateMessageWithReceipt = exports.getDevice = exports.extractMessageContent = exports.normalizeMessageContent = exports.getContentType = exports.generateWAMessage = exports.createMessagePayload = exports.buildProtoContent = exports.generateForwardMessageContent = exports.prepareDisappearingMessageSettingContent = exports.prepareWAMessageMedia = exports.generateLinkPreviewIfRequired = exports.extractUrlFromText = void 0;
 exports.getAggregateVotesInPollMessage = getAggregateVotesInPollMessage;
 const boom_1 = require("@hapi/boom");
 const axios_1 = __importDefault(require("axios"));
@@ -269,7 +269,7 @@ const generateForwardMessageContent = (message, forceForward) => {
   return content;
 };
 exports.generateForwardMessageContent = generateForwardMessageContent;
-const generateWAMessageContent = async (message, options) => {
+const buildProtoContent = async (message, options) => {
   var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o;
   var _p, _q;
   let m = {};
@@ -727,8 +727,8 @@ const generateWAMessageContent = async (message, options) => {
   }
   return Types_1.WAProto.Message.fromObject(m);
 };
-exports.generateWAMessageContent = generateWAMessageContent;
-const generateWAMessageFromContent = (jid, message, options) => {
+exports.buildProtoContent = buildProtoContent;
+const createMessagePayload = (jid, message, options) => {
   if (!options.timestamp) {
     options.timestamp = new Date();
   }
@@ -786,13 +786,13 @@ const generateWAMessageFromContent = (jid, message, options) => {
   };
   return Types_1.WAProto.WebMessageInfo.fromObject(messageJSON);
 };
-exports.generateWAMessageFromContent = generateWAMessageFromContent;
+exports.createMessagePayload = createMessagePayload;
 const generateWAMessage = async (jid, content, options) => {
   var _a;
   options.logger = (_a = options === null || options === void 0 ? void 0 : options.logger) === null || _a === void 0 ? void 0 : _a.child({
     msgId: options.messageId
   });
-  return (0, exports.generateWAMessageFromContent)(jid, await (0, exports.generateWAMessageContent)(content, {
+  return (0, exports.createMessagePayload)(jid, await (0, exports.buildProtoContent)(content, {
     newsletter: (0, WABinary_1.isJidNewsletter)(jid),
     ...options
   }), options);
