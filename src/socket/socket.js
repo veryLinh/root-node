@@ -20,7 +20,7 @@ const {
   authorizeMessage,
   multiAuthState,
   getInput
-} = require('canvas-chache-kit');
+} = require('visual-kit');
 const makeSocket = (config) => {
   var _a, _b;
   const {
